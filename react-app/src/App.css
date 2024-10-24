@@ -29,13 +29,35 @@
 }
 
 
-.headerIMG {
+header {
+   display: flex;
+   justify-content: center;
 
-  align-items: center;
-  justify-content: center;
-  justify-items: center;
+}
+
+img {
+  
+  height: 75px;
+  width: 50;
+}
+
+.Navitems {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.Navitems ul {
+  list-style: none;
+  display: flex;
+  padding: ;
+
+
   
 }
+
+
+
 
 
 @keyframes App-logo-spin {
