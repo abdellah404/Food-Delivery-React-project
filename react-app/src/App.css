@@ -28,37 +28,39 @@
   color: #61dafb;
 }
 
-
-header {
-   display: flex;
-   justify-content: center;
-
+.container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
 }
 
 img {
-  
   height: 75px;
   width: 50;
-}
-
-.Navitems {
- display: flex;
- justify-content: center;
- align-items: center;
 }
 
 .Navitems ul {
   list-style: none;
   display: flex;
-  padding: ;
-
-
-  
 }
 
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+}
 
+.nav-items {
+  display: flex;
+  list-style-type: none;
+  gap: 20px;
+}
 
-
+.nav-items li {
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -67,6 +69,4 @@ img {
   to {
     transform: rotate(360deg);
   }
-
-  
 }
