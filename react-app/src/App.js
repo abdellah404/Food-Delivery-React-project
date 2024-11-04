@@ -1,9 +1,18 @@
-import "./App.css";
-import Header from "./elements/Header.js";
-import { ChakraProvider } from "@chakra-ui/react";
+import React, { Suspense, lazy, useEffect } from "react";
+import Loading from "./components/Loading";
 
-function App() {
-  return (<h1>hello world</h1>);
-}
+const Header = lazy(() => import("./components/Header"));
+
+const App = () => {
+  
+
+  return (
+    <>
+      <Suspense>
+        <Header />
+      </Suspense>
+    </>
+  );
+};
 
 export default App;
