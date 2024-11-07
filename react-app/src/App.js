@@ -1,3 +1,4 @@
+import Hero from "./components/Hero";
 import React, { Suspense, lazy, useEffect } from "react";
 import Loading from "./components/Loading";
 
@@ -10,6 +11,7 @@ const App = () => {
     <>
       <Suspense>
         <Header />
+        <Hero/>
       </Suspense>
     </>
   );
