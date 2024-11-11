@@ -1,6 +1,6 @@
 import React from "react";
 import { useScreenSize } from "../customHooks/ScreenSizeContext";
-import { HeroImg_mid } from "../utils/index";
+import HeroImg_mid from "../images/hero-img.jpg";
 import { useNavigate } from "react-router-dom";
 import { ReactTyped } from "react-typed";
 const Hero = () => {
