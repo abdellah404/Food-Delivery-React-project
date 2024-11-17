@@ -26,8 +26,6 @@ const AppRoutes = () => {
         <Route path="/orderonline" element={<Order />} />
         <Route path="/orderonline/:id" element={<SingleComponent />} />
         <Route path="*" element={<NotFound />} />
-
-
       </Routes>
     </>
   );

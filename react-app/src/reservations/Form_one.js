@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { getCurrentDate } from "../utils/functions";
 import { fontAwesomeIcons } from "../utils/data";
 import reservationCss from "./reservations.module.css";
 import { options } from "../utils/data";
 
-const Form1 = ({ handleChange, reservationDetails }) => {
-  /* Importing CSS */
-
+const Form1 = ({ handleChange, reservationDetails, availableTimes }) => {
   const {
     reservation,
     reservation_heading,
@@ -23,11 +21,17 @@ const Form1 = ({ handleChange, reservationDetails }) => {
 
   const { diners, date, occasion, time } = reservationDetails;
 
+  // Debugging: Log available times whenever they are updated
+  useEffect(() => {
+    console.log("Available times updated:", availableTimes);
+  }, [availableTimes]);
+
   return (
     <section className={`${reservation} _max_width_center`}>
       <h2 className={reservation_heading}>Reservations</h2>
 
       <form>
+        {/* Indoor/Outdoor Seating Selection */}
         <section className={indoor}>
           <label htmlFor="indoor">Indoor seating</label>
           <input
@@ -36,6 +40,7 @@ const Form1 = ({ handleChange, reservationDetails }) => {
             name="indoor-outdoor"
             value="indoor"
             onChange={handleChange}
+            checked={reservationDetails["indoor-outdoor"] === "indoor"}
           />
         </section>
         <div className={outdoor}>
@@ -46,12 +51,13 @@ const Form1 = ({ handleChange, reservationDetails }) => {
             name="indoor-outdoor"
             value="outdoor"
             onChange={handleChange}
+            checked={reservationDetails["indoor-outdoor"] === "outdoor"}
           />
         </div>
 
+        {/* Date Picker */}
         <section className={date_class}>
-          <label htmlFor="date">select date</label>
-
+          <label htmlFor="date">Select date</label>
           <div
             className={
               date
@@ -68,7 +74,6 @@ const Form1 = ({ handleChange, reservationDetails }) => {
               min={getCurrentDate()}
               onChange={handleChange}
             />
-
             {date ? (
               <ShowInputDetails state={date} />
             ) : (
@@ -80,9 +85,9 @@ const Form1 = ({ handleChange, reservationDetails }) => {
           </div>
         </section>
 
+        {/* Number of Diners */}
         <section className="members">
           <label htmlFor="diners">Number of Diners</label>
-
           <div
             className={
               diners
@@ -100,16 +105,14 @@ const Form1 = ({ handleChange, reservationDetails }) => {
               <option value="" disabled>
                 No of Diners
               </option>
-
               {options.map((item) => (
                 <option key={item} value={item}>
                   {item} Diner
                 </option>
               ))}
             </select>
-
             {diners ? (
-              <ShowInputDetails state={diners} text={"Diners"} />
+              <ShowInputDetails state={`${diners} Diners`} />
             ) : (
               <SelelctInputDetails
                 className={fontAwesomeIcons.user}
@@ -119,6 +122,7 @@ const Form1 = ({ handleChange, reservationDetails }) => {
           </div>
         </section>
 
+        {/* Occasion Selector */}
         <section className="occasion">
           <label htmlFor="occasion">Occasion</label>
           <div
@@ -142,11 +146,8 @@ const Form1 = ({ handleChange, reservationDetails }) => {
               <option value="engagement">Engagement</option>
               <option value="anniversary">Anniversary</option>
             </select>
-
             {occasion ? (
-              <ShowInputDetails
-                state={occasion[0].toLocaleUpperCase() + occasion.slice(1)}
-              />
+              <ShowInputDetails state={occasion} />
             ) : (
               <SelelctInputDetails
                 className={fontAwesomeIcons.occasion}
@@ -156,6 +157,7 @@ const Form1 = ({ handleChange, reservationDetails }) => {
           </div>
         </section>
 
+        {/* Time Selector */}
         <section className="time">
           <label htmlFor="time">Select Time</label>
           <div
@@ -175,15 +177,20 @@ const Form1 = ({ handleChange, reservationDetails }) => {
               <option value="" disabled>
                 Select Time
               </option>
-              {options.slice(4).map((item, index) => (
-                <option key={index} value={item}>
-                  {item}: 00 pm
+              {availableTimes.length > 0 ? (
+                availableTimes.map((time, index) => (
+                  <option key={index} value={time}>
+                    {time}
+                  </option>
+                ))
+              ) : (
+                <option value="" disabled>
+                  No times available
                 </option>
-              ))}
+              )}
             </select>
-
             {time ? (
-              <ShowInputDetails state={time} text={": 00 pm"} />
+              <ShowInputDetails state={time} />
             ) : (
               <SelelctInputDetails
                 className={fontAwesomeIcons.time}
@@ -192,7 +199,6 @@ const Form1 = ({ handleChange, reservationDetails }) => {
             )}
           </div>
         </section>
-        {/* <button type="submit">Submit</button> */}
       </form>
     </section>
   );
@@ -200,21 +206,15 @@ const Form1 = ({ handleChange, reservationDetails }) => {
 
 export default Form1;
 
-const ShowInputDetails = ({ state, text }) => {
+const ShowInputDetails = ({ state }) => {
   const { absolute_class, show_input_details } = reservationCss;
   return (
-    <>
-      <div className={`${absolute_class} ${show_input_details}`}>
-        <span></span>
-        <span>
-          {state} {text}
-        </span>
-
-        <span>
-          <i className="fas fa-chevron-up"></i>
-        </span>
-      </div>
-    </>
+    <div className={`${absolute_class} ${show_input_details}`}>
+      <span>{state}</span>
+      <span>
+        <i className="fas fa-chevron-up"></i>
+      </span>
+    </div>
   );
 };
 

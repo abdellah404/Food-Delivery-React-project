@@ -5,11 +5,15 @@ import FormOne from "./Form_one";
 import FormTwo from "./Form_two";
 import ConfirmCard from "./ConfirmCard";
 import { useScreenSize } from "../customHooks/ScreenSizeContext";
+import { date } from "yup";
+import { fetchAPI, submitAPI } from "../utils/functions";
+
 const Reservations = () => {
   const { navbarHeight, footerHeight } = useScreenSize();
   const [flag, setFlag] = useState(true);
 
   const [confirmFlag, setConfirmFlag] = useState(false);
+  const [availableTimes, setAvailableTimes] = useState([]);
 
   const [formErrors, setFormErrors] = useState({});
 
@@ -32,10 +36,32 @@ const Reservations = () => {
   });
 
   const handleChange = (e) => {
-    setReservationsDetails({
-      ...reservationDetails,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    setReservationsDetails((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (name === "date") {
+      fetchAvailableTimes(value); // Trigger fetch when date changes
+    }
+  };
+
+  const fetchAvailableTimes = (dateString) => {
+    if (!dateString) return;
+
+    const dateObject = new Date(dateString);
+
+    if (isNaN(dateObject)) {
+      console.error("Invalid date passed to fetchAvailableTimes:", dateString);
+      setAvailableTimes([]); // Clear times
+      return;
+    }
+
+    const availableTimes = fetchAPI(dateObject); // Fetch times
+    console.log("Times fetched for date:", dateString, availableTimes);
+    setAvailableTimes(availableTimes); // Update state
   };
 
   /* Form 2  state*/
@@ -113,12 +139,29 @@ const Reservations = () => {
       occasion &&
       time
     ) {
-      // setConfirmFlag(true);
-      handleConfirmFlag();
-      setFormErrors({});
-      setTimeout(() => {
-        handleReset();
-      }, 5000);
+      const formData = {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        agrement,
+        indoorOutdoor,
+        diners,
+        date,
+        occasion,
+        time,
+      };
+      const success = submitAPI(formData);
+
+      if (success) {
+        handleConfirmFlag(); // Show confirmation
+        setFormErrors({});
+        setTimeout(() => {
+          handleReset();
+        }, 5000);
+      } else {
+        alert("Failed to submit reservation. Please try again.");
+      }
     } else {
       handleFormErrors();
     }
@@ -150,9 +193,12 @@ const Reservations = () => {
   };
 
   return (
-    <section className={main_reservations_container} style={{minHeight:`calc(100vh - ${navbarHeight + footerHeight}px)`}}>
+    <section
+      className={main_reservations_container}
+      style={{ minHeight: `calc(100vh - ${navbarHeight + footerHeight}px)` }}
+    >
       {/* {confirmFlag && <ConfirmCard />} */}
-      
+
       {confirmFlag && (
         <section
           style={{
@@ -173,6 +219,7 @@ const Reservations = () => {
           <FormOne
             handleChange={handleChange}
             reservationDetails={reservationDetails}
+            availableTimes={availableTimes} // Pass the times
           />
         ) : (
           <FormTwo

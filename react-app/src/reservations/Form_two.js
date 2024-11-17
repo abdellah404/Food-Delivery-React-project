@@ -162,7 +162,7 @@ const Form2 = ({
                 <div className={orange_color}>
                   <i className={fontAwesomeIcons.occasion}></i>
 
-                  <span>occasion</span>
+                  <span>occasion details</span>
                 </div>
               )}
             </div>

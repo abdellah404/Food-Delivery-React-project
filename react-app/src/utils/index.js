@@ -47,7 +47,7 @@ export const min_min_2kb = "/minAssets/2kb_2kb.jpg";
 
 // mid images
 
-export const HeroImg_mid = "/images/hero_img.jpg";
+export const HeroImg_mid = "/midAssets/HeroImage_mid.jpg";
 export const Greeksalad_mid = "/midAssets/greek_salad_mid.jpg";
 export const LemonDessert_mid = "/midAssets/lemon dessert_mid.jpg";
 export const bruchetta_mid = "/midAssets/bruchetta_mid.jpg";
