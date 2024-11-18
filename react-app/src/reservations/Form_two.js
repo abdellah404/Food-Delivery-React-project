@@ -142,7 +142,7 @@ const Form2 = ({
               {time ? (
                 <>
                   <i className={fontAwesomeIcons.time}></i>
-                  <span>{time}: 00pm</span>
+                  <span>{time}</span>
                 </>
               ) : (
                 <div className={orange_color}>

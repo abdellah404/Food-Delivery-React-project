@@ -53,14 +53,9 @@ const Reservations = () => {
 
     const dateObject = new Date(dateString);
 
-    if (isNaN(dateObject)) {
-      console.error("Invalid date passed to fetchAvailableTimes:", dateString);
-      setAvailableTimes([]); // Clear times
-      return;
-    }
+    
 
     const availableTimes = fetchAPI(dateObject); // Fetch times
-    console.log("Times fetched for date:", dateString, availableTimes);
     setAvailableTimes(availableTimes); // Update state
   };
 
@@ -160,7 +155,7 @@ const Reservations = () => {
           handleReset();
         }, 5000);
       } else {
-        alert("Failed to submit reservation. Please try again.");
+        document.alert("Failed to submit reservation. Please try again.");
       }
     } else {
       handleFormErrors();

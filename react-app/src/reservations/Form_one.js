@@ -21,10 +21,7 @@ const Form1 = ({ handleChange, reservationDetails, availableTimes }) => {
 
   const { diners, date, occasion, time } = reservationDetails;
 
-  // Debugging: Log available times whenever they are updated
-  useEffect(() => {
-    console.log("Available times updated:", availableTimes);
-  }, [availableTimes]);
+
 
   return (
     <section className={`${reservation} _max_width_center`}>
@@ -210,6 +207,7 @@ const ShowInputDetails = ({ state }) => {
   const { absolute_class, show_input_details } = reservationCss;
   return (
     <div className={`${absolute_class} ${show_input_details}`}>
+      <span></span>
       <span>{state}</span>
       <span>
         <i className="fas fa-chevron-up"></i>
