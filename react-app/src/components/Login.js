@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useScreenSize } from "../customHooks/ScreenSizeContext";
 const Login = () => {
   const navigate = useNavigate();
-  const { navbarHeight, footerHeight } = useScreenSize();
   const [flag, setFlag] = useState(false);
   const [success, setIsSuccess] = useState(false);
   const [loginSuccess, setIsLoginSuccess] = useState(false);
-
   const [formErrors, setFormErrors] = useState({});
   const [signUpErrors, setSignUpErrors] = useState({});
 
@@ -50,10 +47,9 @@ const Login = () => {
         navigate("/reservations");
       }, 4600);
     } else {
-      handleFormErrors();
-    }
+      setFormErrors(() => validateForm(login));  
+      }
   };
-  const handleFormErrors = () => setFormErrors(() => validateForm(login));
 
   const signUpBtn = (e) => {
     e.preventDefault();
@@ -105,7 +101,6 @@ const Login = () => {
   return (
     <div
       className="login-container"
-      style={{ minHeight: `calc(100vh - ${navbarHeight + footerHeight}px)` }}
     >
       {success && <Success type={"Sign Up"} page={"Login"} />}
       {loginSuccess && <Success type={"Log-In"} page={"Reservations"} />}

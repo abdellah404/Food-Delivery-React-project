@@ -20,6 +20,7 @@ const Footer = () => {
       }
     };
 
+    
     // Initial call on mount
     handleResize();
 

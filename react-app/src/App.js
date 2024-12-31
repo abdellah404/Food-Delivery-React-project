@@ -7,16 +7,13 @@ const AppRoutes = lazy(() => import("./routes/AppRoutes"));
 const Header = lazy(() => import("./components/Header"));
 const Footer = lazy(() => import("./components/Footer"));
 
-
 const App = () => {
-  
-
   return (
     <>
       <Suspense>
-      <Header/>
-      <AppRoutes/>
-      <Footer />
+        <Header />
+        <AppRoutes />
+        <Footer />
       </Suspense>
     </>
   );
