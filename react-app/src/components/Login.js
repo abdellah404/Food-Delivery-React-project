@@ -7,7 +7,6 @@ const Login = () => {
   const [loginSuccess, setIsLoginSuccess] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [signUpErrors, setSignUpErrors] = useState({});
-
   const [login, setLogin] = useState({
     email: "",
     password: "",
